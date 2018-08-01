@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>轮播的制作</title>
+	<link rel="stylesheet" type="text/css" href="a.css">
+	<link rel="shortcut icon" type="image/x-icon" href="tabs.png">
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+    <div class = "window">
+      <div class = "images" id = images>
+      	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533738564&di=f96d62ceb907d640f7cfd1091ea28fa9&imgtype=jpg&er=1&src=http%3A%2F%2Fresource.feng.com%2Fresource%2Fh054%2Fh03%2Fimg201505061613340.png" width = 300px alt = "first" height=200px >
+      	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533738767&di=7eda7e53253edcaf533b72977418b7e3&imgtype=jpg&er=1&src=http%3A%2F%2Fimg0.pclady.com.cn%2Fpclady%2F1807%2F26%2F1839319_4.jpg" width = 300px alt = "" height = 200px >
+      	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533738564&di=f96d62ceb907d640f7cfd1091ea28fa9&imgtype=jpg&er=1&src=http%3A%2F%2Fresource.feng.com%2Fresource%2Fh054%2Fh03%2Fimg201505061613340.png" width = 300px alt = "" height=200px >
+      	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533738767&di=7eda7e53253edcaf533b72977418b7e3&imgtype=jpg&er=1&src=http%3A%2F%2Fimg0.pclady.com.cn%2Fpclady%2F1807%2F26%2F1839319_4.jpg" width = 300px alt = "" height = 200px >
+      </div>
+    </div>
+    <span id = buttons>
+    	<span>第一张</span>
+    	<span>第二张</span>
+    	<span>第三张</span>
+    	<span>第四张</span>
+    </span>
+    <script>
+    	var allButtons = $('#buttons > span')
+
+for (let i = 0; i < allButtons.length; i++){
+	$(allButtons[i]).on('click',function(x){
+		console.log('hi')
+		var index = $(x.currentTarget).index()
+		var p = index * - 300
+		$('#images').css({
+			transform: 'translate(' + p +'px)'
+		})
+		n = index
+		allButtons.eq(n)
+		  .addClass('red')
+		  .siblings('.red').removeClass('red')
+	})
+}
+
+var n = 0;
+var size = allButtons.length
+allButtons.eq(n % size).trigger('click')
+  .addClass('red')
+  .siblings('.red').removeClass('red')
+
+var timerId = setInterval(() => {
+	n += 1
+	allButtons.eq(n % size).trigger('click')
+      .addClass('red')
+      .siblings('.red').removeClass('red')
+},1000)
+
+
+$('.window').on('mouseenter',function(){
+	window.clearInterval(timerId)
+})
+
+$('.window').on('mouseenter',function(){
+	timerId = setInterval(() => {
+	n += 1
+	allButtons.eq(n % size).trigger('click')
+      .addClass('red')
+      .siblings('.red').removeClass('red')
+},3000)
+})
+    </script>
+</body>
+</html>
